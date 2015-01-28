@@ -1,0 +1,3 @@
+[submodule "bsdpy"]
+	path = bsdpy
+	url = https://bitbucket.org/bruienne/bsdpy
