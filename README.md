@@ -19,10 +19,18 @@ This has been tested to work with both the default VirtualBox providers and the 
 
 This will provision the VM and rsync over the contents of the NBI directory. The `rsync` synced folders are used as opposed to the VM providers' shared folder mechanism, because of issues using Linux's kernel NFS server on these shared folder filesystems.
 
-When it's done, start the server. In this example, I'm listening on the `eth1` device (which is a bridged public interface), and specifying the NFS protocol.
+When it's done, start the server. In this example, I'm listening on the `eth1` device (which is a bridged public interface), and specifying the NFS protocol:
 
 `vagrant ssh -c "sudo /vagrant/bsdpy/bsdpserver.py --iface eth1 --proto nfs"`
 
-You can tail the logfile also:
+You can also tail the logfile:
 
 `vagrant ssh -c "tail -f /var/log/bsdpserver.log"`
+
+When you make updates to an NBI, you can sync them over manually:
+
+`vagrant rsync`
+
+or have Vagrant poll for changes:
+
+`vagrant rsync-auto`
