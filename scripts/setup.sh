@@ -37,13 +37,3 @@ fi
 ## bsdpy
 pip install docopt
 # git clone https://bitbucket.org/bruienne/bsdpy
-
-
-# NBI images
-# symlink sparseimages to dmgs
-# dmgs are expected for the BSDP server (and booted client images), but we leave
-# them out of our testing repos because vagrant rsync doesn't handle them cleanly
-for nbidir in /nbi/*; do
-  cd "${nbidir}"
-  ln -sf "NetInstall.sparseimage" "NetInstall.dmg"
-done
