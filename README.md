@@ -1,7 +1,17 @@
 # vagrant-bsdpy
-This is a basic Vagrant lab for testing and hacking on [BSDPy](https://bitbucket.org/bruienne/bsdpy), a Python NetBoot server. It is based on a Debian 7 (Wheezy) box.
+This is a basic Vagrant lab for testing and hacking on [BSDPy](https://bitbucket.org/bruienne/bsdpy), a Python NetBoot server written by [Pepijn Bruienne](http://enterprisemac.bruienne.com). It is based on a Debian 7 (Wheezy) box.
 
 It currently only supports (and assumes) NFS-shared NBIs. To be able to test this with other physical Macs, I configure a [public network interface](https://docs.vagrantup.com/v2/networking/public_network.html) in the Vagrantfile.
+
+## Components
+
+A NetBoot solution requires at least three services:
+
+* [BSDP](http://en.wikipedia.org/wiki/Boot_Service_Discovery_Protocol), implemented with BSDPy.
+* TFTP, implemented with [TFTPD-HPA](http://chschneider.eu/linux/server/tftpd-hpa.shtml).
+* NFS or HTTP for serving the actual boot image. This project uses the NFS kernel server, and does not implement HTTP.
+
+There is no vanilla DHCP solution included in this project. Clients will need to be able to acquire an IP address at boot time from elsewhere.
 
 ## Setup
 

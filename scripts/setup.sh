@@ -11,6 +11,8 @@ apt-get install -y \
   tftpd-hpa
 
 # TFTP config
+## We explicitly refuse the blksize using the '-r' option, as some newer Mac
+## models send this option and cause aborted connections
 cat > /etc/default/tftpd-hpa << EOF
 # /etc/default/tftpd-hpa
 TFTP_USERNAME="tftp"
@@ -36,4 +38,3 @@ fi
 
 ## bsdpy
 pip install docopt
-# git clone https://bitbucket.org/bruienne/bsdpy
