@@ -34,6 +34,7 @@ if ! python -c "import pydhcplib"; then
   git clone https://github.com/bruienne/pydhcplib
   cd pydhcplib
   sudo python setup.py install
+  cd .. && sudo rm -rf pydhcplib
 fi
 
 ## bsdpy
