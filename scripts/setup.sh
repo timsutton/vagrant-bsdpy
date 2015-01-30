@@ -42,7 +42,7 @@ ln -sf /etc/nginx/sites-available/bsdpy /etc/nginx/sites-enabled/bsdpy
 service nginx reload
 
 # BSDPy stuff
-## pydhcplib
+## pydhcplib module (with a native extension)
 if ! python -c "import pydhcplib"; then
   echo "pydhcplib seems to be not installed, installing Pepijn Bruienne's patched fork.."
   wget https://github.com/bruienne/pydhcplib/archive/master.tar.gz
@@ -52,5 +52,5 @@ if ! python -c "import pydhcplib"; then
   cd .. && sudo rm -rf pydhcplib-master master.tar.gz
 fi
 
-## bsdpy
+## docopt module
 pip install docopt
