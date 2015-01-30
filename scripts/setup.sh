@@ -5,6 +5,7 @@ apt-get upgrade -y
 apt-get install -y \
   build-essential \
   nfs-kernel-server \
+  nginx \
   python-dev \
   python-pip \
   tftpd-hpa
@@ -25,6 +26,20 @@ service tftpd-hpa restart
 # NFS config
 echo "/nbi   *(async,ro,no_root_squash,no_subtree_check,insecure)" > /etc/exports
 service nfs-kernel-server reload
+
+# Nginx config
+rm -f /etc/nginx/sites-enabled/default
+cat > /etc/nginx/sites-available/bsdpy << EOF
+server {
+    listen       80;
+    server_name  localhost;
+    location / {
+        root   /nbi;
+    }
+}
+EOF
+ln -sf /etc/nginx/sites-available/bsdpy /etc/nginx/sites-enabled/bsdpy
+service nginx reload
 
 # BSDPy stuff
 ## pydhcplib
