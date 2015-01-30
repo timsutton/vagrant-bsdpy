@@ -1,3 +1,4 @@
 [submodule "bsdpy"]
 	path = bsdpy
-	url = https://bitbucket.org/bruienne/bsdpy
+	url = https://bitbucket.org/timsutton/bsdpy
+	branch = enabled-mac-addresses
