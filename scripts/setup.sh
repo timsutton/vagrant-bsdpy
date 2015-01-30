@@ -4,7 +4,6 @@ apt-get update
 apt-get upgrade -y
 apt-get install -y \
   build-essential \
-  git \
   nfs-kernel-server \
   python-dev \
   python-pip \
@@ -31,10 +30,11 @@ service nfs-kernel-server reload
 ## pydhcplib
 if ! python -c "import pydhcplib"; then
   echo "pydhcplib seems to be not installed, installing Pepijn Bruienne's patched fork.."
-  git clone https://github.com/bruienne/pydhcplib
-  cd pydhcplib
+  wget https://github.com/bruienne/pydhcplib/archive/master.tar.gz
+  tar -xzf master.tar.gz
+  cd pydhcplib-master
   sudo python setup.py install
-  cd .. && sudo rm -rf pydhcplib
+  cd .. && sudo rm -rf pydhcplib-master master.tar.gz
 fi
 
 ## bsdpy
