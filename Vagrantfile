@@ -6,6 +6,10 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "public_network", :mac => "000C29B8B597"
 
+  # Set this to the arguments you want passed to bsdpserver.py
+  # 'eth1' is used here because this is the public interface defined above
+  BSDPSERVER_ARGS = "--iface eth1 --proto http"
+
   # Synced folder config
   # NetBoot images can be served via either HTTP or NFS (BSDPy currently
   # supports one or the other in a given instance).
@@ -35,5 +39,6 @@ Vagrant.configure(2) do |config|
     # rsync__args: ["--verbose", "--archive", "--delete"],
     # rsync__exclude: [".git/", ".DS_Store"]
 
-  config.vm.provision "shell", path: "scripts/setup.sh"
+  config.vm.provision "shell", path: "scripts/setup.sh",
+    args: "#{BSDPSERVER_ARGS}"
 end

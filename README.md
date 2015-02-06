@@ -13,6 +13,8 @@ A NetBoot solution requires at least three services:
 
 There is no vanilla DHCP solution included in this project. Clients will need to be able to acquire an IP address at boot time from elsewhere.
 
+This project manages the BSDPy process using [runit](http://smarden.org/runit). Josh Timberman has a [great blog post](http://jtimberman.housepub.org/blog/2012/12/29/process-supervision-solved-problem) on this.
+
 ## Setup
 
 Clone this repo and the included BSDPy submodule:
@@ -27,21 +29,28 @@ Bring up the VM:
 
 This has been tested to work with both the default VirtualBox providers and the HashiCorp VMware providers. Specify the provider using the `--provider` option or by setting the `VAGRANT_DEFAULT_PROVIDER` environment variable.
 
-This will provision the VM and set up the shared folder.
-
-When it's done, start the server. In this example, I'm listening on the `eth1` device (which is a bridged public interface):
-
-`vagrant ssh -c "sudo /vagrant/bsdpy/bsdpserver.py --iface eth1"`
-
-Alternatively, specifying I will be serving NBIs over NFS:
-
-`vagrant ssh -c "sudo /vagrant/bsdpy/bsdpserver.py --iface eth1 --proto nfs"`
-
-You can also tail the logfile:
+This will provision the VM and set up the shared folder. At this point the BSDPy service should be running. You can also tail the logfile to view progress:
 
 `vagrant ssh -c "tail -f /var/log/bsdpserver.log"`
 
-If you are using rsync synced folders, don't forget to sync any changes you make to NBIs:
+## Runit config
+
+The process will be started with the `run` script located at `/etc/sv/bsdpy/run`. This script is built when Vagrant provisions the machine, and the arguments can be customized by setting the `BSDPSERVER_ARGS` constant at the top of the Vagrantfile.
+
+Use `sv` to manage the service:
+
+```
+sv restart bsdpy
+sv stop bsdpy
+sv start bsdpy
+sv 1 bsdpy (send a USR1 signal to have BSDPy rescan images)
+```
+
+You can also use typical init-style commands like `service restart bsdpy`.
+
+## Rsync
+
+If you are using rsync synced folders (which might be the case if BSDPy is configured to point clients to NFS), don't forget to sync any changes you make to NBIs:
 
 `vagrant rsync`
 

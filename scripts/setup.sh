@@ -1,5 +1,7 @@
 #!/bin/sh
 
+bsdpyserver_opts="$@"
+echo "Setting up VM with BSDPy options: ${bsdpyserver_opts}"
 apt-get update
 apt-get upgrade -y
 apt-get install -y \
@@ -8,6 +10,7 @@ apt-get install -y \
   nginx \
   python-dev \
   python-pip \
+  runit \
   tftpd-hpa
 
 # TFTP config
@@ -54,3 +57,16 @@ fi
 
 ## docopt module
 pip install docopt
+
+# Runit service config for BSDPy
+## set up our service directory, run script
+mkdir /etc/sv/bsdpy
+cat > /etc/sv/bsdpy/run << EOF
+#!/bin/sh
+exec chpst /vagrant/bsdpy/bsdpserver.py ${bsdpyserver_opts}
+EOF
+chmod 700 /etc/sv/bsdpy/run
+## symlink it to enable it
+ln -sf /etc/sv/bsdpy /etc/service/bsdpy
+## symlink sv to an init.d service for init usage compatibility
+ln -sf /usr/bin/sv /etc/init.d/bsdpy
