@@ -1,4 +1,0 @@
-[submodule "bsdpy"]
-	path = bsdpy
-	url = https://bitbucket.org/timsutton/bsdpy
-	branch = enabled-mac-addresses
