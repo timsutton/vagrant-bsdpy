@@ -17,9 +17,18 @@ This project manages the BSDPy process using [runit](http://smarden.org/runit). 
 
 ## Setup
 
-Clone this repo and the included BSDPy submodule:
+Clone this repo:
 
-`git clone --recursive https://github.com/timsutton/vagrant-bsdpy`
+```
+git clone https://github.com/timsutton/vagrant-bsdpy
+```
+
+Clone BSDPy from a branch/source of your choosing within the repo:
+
+```
+cd vagrant-bsdpy
+git clone https://bitbucket.org/bruienne/bsdpy
+```
 
 Put NBIs in the `nbi` directory.
 
