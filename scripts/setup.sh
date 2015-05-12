@@ -41,6 +41,9 @@ server {
     }
 }
 EOF
+# add some additional logging
+echo "error_log /var/log/nginx/error.log notice;" > /etc/nginx/conf.d/log_notice.conf
+# enable the bsdpy site
 ln -sf /etc/nginx/sites-available/bsdpy /etc/nginx/sites-enabled/bsdpy
 service nginx restart
 
