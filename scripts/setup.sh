@@ -42,7 +42,7 @@ server {
 }
 EOF
 ln -sf /etc/nginx/sites-available/bsdpy /etc/nginx/sites-enabled/bsdpy
-service nginx reload
+service nginx restart
 
 # BSDPy stuff
 ## pydhcplib module (with a native extension)
@@ -55,12 +55,12 @@ if ! python -c "import pydhcplib"; then
   cd .. && sudo rm -rf pydhcplib-master master.tar.gz
 fi
 
-## docopt module
-pip install docopt
+## Install BSDPy requirements (docopt, requests)
+pip install -r /vagrant/bsdpy/requirements.txt
 
 # Runit service config for BSDPy
 ## set up our service directory, run script
-mkdir /etc/sv/bsdpy
+[ ! -d /etc/sv/bsdpy ] && mkdir /etc/sv/bsdpy
 cat > /etc/sv/bsdpy/run << EOF
 #!/bin/sh
 exec chpst /vagrant/bsdpy/bsdpserver.py ${bsdpyserver_opts}
@@ -70,3 +70,4 @@ chmod 700 /etc/sv/bsdpy/run
 ln -sf /etc/sv/bsdpy /etc/service/bsdpy
 ## symlink sv to an init.d service for init usage compatibility
 ln -sf /usr/bin/sv /etc/init.d/bsdpy
+sv restart bsdpy
