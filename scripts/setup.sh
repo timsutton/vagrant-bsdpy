@@ -2,9 +2,15 @@
 
 bsdpyserver_opts="$@"
 echo "Setting up VM with BSDPy options: ${bsdpyserver_opts}"
+
+rm -rf /var/lib/apt/lists/*
 apt-get update
 apt-get upgrade -y
+
+# Additional dpkg options to keep our own modifications (ie. /etc/exports)
 apt-get install -y \
+  -o Dpkg::Options::="--force-confdef" \
+  -o Dpkg::Options::="--force-confold" \
   build-essential \
   nfs-kernel-server \
   nginx \
