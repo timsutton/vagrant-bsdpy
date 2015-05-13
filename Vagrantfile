@@ -2,8 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "chef/debian-7.8"
-
+  config.vm.box = "kikitux/jessie"
   config.vm.network "public_network", :mac => "000C29B8B597"
 
   # Set this to the arguments you want passed to bsdpserver.py

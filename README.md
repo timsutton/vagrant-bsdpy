@@ -1,5 +1,5 @@
 # vagrant-bsdpy
-This is a basic Vagrant lab for testing and hacking on [BSDPy](https://bitbucket.org/bruienne/bsdpy), a Python NetBoot server written by [Pepijn Bruienne](http://enterprisemac.bruienne.com). It is based on a Debian 7 (Wheezy) box.
+This is a basic Vagrant lab for testing and hacking on [BSDPy](https://bitbucket.org/bruienne/bsdpy), a Python NetBoot server written by [Pepijn Bruienne](http://enterprisemac.bruienne.com). It is based on a Debian 8 (Jessie) box that supports both the `virtualbox` and `vmware_fusion` providers.
 
 The default configuration is to use HTTP NBIs, but there is documentation in the Vagrantfile on how to configure synced folders for use with NFS NBIs. To be able to test this with other physical Macs, I configure a [public network interface](https://docs.vagrantup.com/v2/networking/public_network.html) in the Vagrantfile.
 
