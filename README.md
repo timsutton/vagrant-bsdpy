@@ -23,7 +23,7 @@ Clone this repo:
 git clone https://github.com/timsutton/vagrant-bsdpy
 ```
 
-Clone BSDPy from a branch/source of your choosing within the repo:
+Clone BSDPy from a branch/source of your choosing within the repo, for example:
 
 ```
 cd vagrant-bsdpy
