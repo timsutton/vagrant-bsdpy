@@ -32,6 +32,10 @@ echo "/nbi   *(async,ro,no_root_squash,no_subtree_check,insecure)" > /etc/export
 service nfs-kernel-server reload
 
 # Nginx config
+# - includes a rewrite of the URI to remove the leading /nbi
+#   from the root_path given to clients when using HTTP
+#   - useful as of commit 9677a73, currently on 'api' branch:
+#     https://bitbucket.org/bruienne/bsdpy/commits/9677a73
 rm -f /etc/nginx/sites-enabled/default
 cat > /etc/nginx/sites-available/bsdpy << EOF
 server {
@@ -39,10 +43,12 @@ server {
     server_name  localhost;
     location / {
         root   /nbi;
+        rewrite ^/nbi/(.*)$ /\$1 last;
+        rewrite_log on;
     }
 }
 EOF
-# add some additional logging
+# add some additional logging, useful for verifying rewrites
 echo "error_log /var/log/nginx/error.log notice;" > /etc/nginx/conf.d/log_notice.conf
 # enable the bsdpy site
 ln -sf /etc/nginx/sites-available/bsdpy /etc/nginx/sites-enabled/bsdpy
