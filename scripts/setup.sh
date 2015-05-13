@@ -14,14 +14,15 @@ apt-get install -y \
   tftpd-hpa
 
 # TFTP config
-## We explicitly refuse the blksize using the '-r' option, as some newer Mac
-## models send this option and cause aborted connections
+## We explicitly force a specific block size. 1468 is known to work with the
+## 2015 12" Macbook and USB-C -> USB -> USB Ethernet adapters.
+## https://twitter.com/bruienne/status/598521812859883520
 cat > /etc/default/tftpd-hpa << EOF
 # /etc/default/tftpd-hpa
 TFTP_USERNAME="tftp"
 TFTP_DIRECTORY="/nbi"
 TFTP_ADDRESS="0.0.0.0:69"
-TFTP_OPTIONS="-r blksize"
+TFTP_OPTIONS="-B 1468"
 RUN_DAEMON="yes"
 EOF
 service tftpd-hpa restart
