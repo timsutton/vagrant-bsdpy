@@ -74,4 +74,4 @@ chmod 700 /etc/sv/bsdpy/run
 ln -sf /etc/sv/bsdpy /etc/service/bsdpy
 ## symlink sv to an init.d service for init usage compatibility
 ln -sf /usr/bin/sv /etc/init.d/bsdpy
-sv restart bsdpy
+sv start bsdpy
